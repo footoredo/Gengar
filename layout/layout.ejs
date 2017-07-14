@@ -1,0 +1,42 @@
+<%- partial('_partial/head') %>
+<body>
+
+
+  <%- partial('_partial/loading') %>
+  <script>setLoadingBarProgress(20)</script>
+
+  <div id="site-wrapper">
+
+    <%- partial('_partial/header', null, {cache: !config.relative_link}) %>
+    <script>setLoadingBarProgress(40);</script>
+
+    <main id="main" role="main">
+      <%- body %>
+      <script>setLoadingBarProgress(60);</script>
+    </main>
+
+    <%- partial('_partial/footer', null, {cache: !config.relative_link}) %>
+    <script>setLoadingBarProgress(80);</script>
+
+  </div>
+
+  <%- partial('_partial/scripts') %>
+  <script>setLoadingBarProgress(100);</script>
+<script>
+  pangu.spacingPage();
+  pangu.spacingElementById('main');
+  pangu.spacingElementByClassName('comment');
+  pangu.spacingElementByTagName('p');
+</script>
+
+<script type="text/javascript">
+$('p:contains("{no-indent}")').each(function() {
+var text = $(this).html();
+$(this).css('text-indent', '0em');
+$(this).html(text.replace('{no-indent}', ''));
+
+});
+</script>
+
+</body>
+</html>
